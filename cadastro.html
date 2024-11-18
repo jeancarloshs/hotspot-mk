@@ -15,7 +15,10 @@
     <div class="ie-fixMinHeight">
       <div class="main">
         <div class="wrap animated fadeIn">
-          <form onsubmit="return validarFormulario()" action="./api/cadastro.php" method="POST">
+          <form
+            onsubmit="return sendUser(event)"
+            method="POST"
+          >
             <input type="hidden" name="dst" value="$(link-orig)" />
             <input type="hidden" name="popup" value="true" />
 
@@ -94,23 +97,19 @@
             </label>
             <label>
               <img class="ico" src="img/home.png" alt="#" />
-              <input
-                name="complemento"
-                type="text"
-                placeholder="Complemento"
-              />
+              <input name="complemento" type="text" placeholder="Complemento" />
             </label>
 
             <label>
-                <img class="ico" src="img/e-mail.png" alt="#" />
-                <input
-                  name="email"
-                  id="email"
-                  type="text"
-                  placeholder="E-mail"
-                  required
-                />
-              </label>
+              <img class="ico" src="img/e-mail.png" alt="#" />
+              <input
+                name="email"
+                id="email"
+                type="text"
+                placeholder="E-mail"
+                required
+              />
+            </label>
 
             <label>
               <img class="ico" src="img/password.svg" alt="#" />
@@ -143,4 +142,47 @@
       </div>
     </div>
   </body>
+  <script>
+    async function sendUser(event) {
+      event.preventDefault();
+      let headersList = {
+        Accept: "*/*",
+        "Content-Type": "application/json",
+      };
+
+      let bodyContent = JSON.stringify({
+        name: document.getElementById("cpf").value,
+        password: document.getElementById("password").value,
+        email: document.getElementById("email").value,
+        comment: document.getElementById("nome_completo").value,
+        server: 'hotspot-01',
+        profile: 'default',
+        ipHotspot: "192.168.1.5"
+      });
+
+      let response = await fetch(
+        "http://127.0.0.1:3000/api/mikrotik/hotspot/user",
+        {
+          method: "POST",
+          body: bodyContent,
+          headers: headersList,
+        }
+      );
+
+      let data = await response.json();
+      if (data.status === 201) {
+        alert(data.message);
+        setTimeout(() => {
+          window.location.href = "./login.html"
+        }, 2000)
+        // window.location.href = "$(link-orig)";
+      }
+
+      if (data.status === 409) {
+        alert(data.message);
+        // window.location.href = "$(link-orig)";
+      }
+      return data;
+    }
+  </script>
 </html>
