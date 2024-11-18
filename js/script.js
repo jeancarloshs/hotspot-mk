@@ -84,8 +84,11 @@ function buscarCep(cep) {
       // document.getElementById("cidade").value = data.localidade;
 
       // Concatena o bairro, cidade e estado para visualização
-      const enderecoCompleto = `${data.logradouro}, ${data.bairro}, ${data.localidade}, - ${data.uf}`;
-      document.getElementById("endereco_completo").value = enderecoCompleto;
+      // const enderecoCompleto = `${data.logradouro}, ${data.bairro}, ${data.localidade}, - ${data.uf}`;
+      document.getElementById("endereco_completo").value = data.logradouro;
+      document.getElementById("bairro").value = data.bairro;
+      document.getElementById("cidade").value = data.localidade;
+      document.getElementById("estado").value = data.uf;
     })
     .catch((error) => {
       console.error("Erro ao buscar CEP:", error);
