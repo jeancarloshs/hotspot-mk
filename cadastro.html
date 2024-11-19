@@ -133,7 +133,7 @@
   async function sendUser(event) {
     event.preventDefault();
     let headersList = {
-      Accept: "*/*",
+      "Accept": "*/*",
       "Content-Type": "application/json",
     };
 
@@ -153,13 +153,14 @@
         method: "POST",
         body: bodyContent,
         headers: headersList,
+        mode: 'no-cors'
       }
     );
 
     let data = await response.json();
     if (data.status === 201) {
       alert(data.message);
-      await createUser();
+      // await createUser();
       setTimeout(() => {
         window.location.href = "./login.html"
       }, 2000)
