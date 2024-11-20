@@ -119,7 +119,7 @@
       hsID: 1
     });
 
-    let response = await fetch("http://192.168.6.50:3000/api/client/create", {
+    let response = await fetch("http://192.168.1.6:3000/api/client/create", {
       method: "POST",
       body: bodyContent,
       headers: headersList
@@ -144,11 +144,11 @@
       comment: document.getElementById("nome_completo").value,
       server: 'hotspot-01',
       profile: 'default',
-      ipHotspot: "192.168.6.1"
+      ipHotspot: "192.168.1.2"
     });
 
     let response = await fetch(
-      "http://192.168.6.50:3000/api/mikrotik/hotspot/user",
+      "http://192.168.1.6:3000/api/mikrotik/hotspot/user",
       {
         method: "POST",
         body: bodyContent,
