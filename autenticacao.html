@@ -71,7 +71,7 @@
                         <input name="password" type="password" placeholder="Password" />
                     </label>
 
-                    <input type="submit" value="Conectar" />
+                    <input type="submit" id="btnConectar" value="Conectar" />
 
                 </form>
                 <!-- <p class="info bt">Powered by MikroTik RouterOS</p> -->
@@ -85,5 +85,69 @@
         </div>
     </div>
 </body>
+
+<script>
+  const btnConectar = document.getElementById("btnConectar");
+  const browserUserAgent = navigator.userAgent;
+  const browserPlatform = navigator.platform;
+  const userAgentData = navigator.userAgentData || {}; // Verifica se navigator.userAgentData está disponível
+  const userAgentDataPlatform = userAgentData.platform || ""; // Garante que a variável exista
+  let platform = "";
+  let os = "";
+  const width = window.screen.width;
+  const height = window.screen.height;
+
+  // Identificar tipo de dispositivo e sistema operacional
+  if (userAgentDataPlatform === "Windows" || browserPlatform.includes("Win")) {
+    platform = "Desktop";
+    os = "Windows";
+  } else if (userAgentDataPlatform === "Android" || browserUserAgent.includes("Android")) {
+    platform = "Mobile";
+    os = "Android";
+  } else if (browserUserAgent.includes("iPhone") || browserUserAgent.includes("iPad")) {
+    platform = "Mobile";
+    os = "iOS";
+  } else if (browserPlatform.includes("Mac")) {
+    platform = "Desktop";
+    os = "macOS";
+  } else {
+    platform = "Unknown";
+    os = "Unknown";
+  }
+
+  async function getPlatform() {
+    let headersList = {
+      Accept: "*/*",
+      "Content-Type": "application/json",
+    };
+
+    let bodyContent = JSON.stringify({
+      cpf: document.getElementById("cpf").value,
+      user_agent: browserUserAgent,
+      device_type: platform,
+      // browser: "deviceData.user_agent",
+      // browser_version: "deviceData.user_agent",
+      os: os,
+      // os_version: "deviceData.user_agent",
+      screen_height: height,
+      screen_width: width,
+    });
+
+    let response = await fetch("http://192.168.3.20:3000/api/device/create", {
+      method: "POST",
+      body: bodyContent,
+      headers: headersList,
+    });
+
+    let data = await response.text();
+    console.log(data);
+    return data;
+  }
+
+  btnConectar.addEventListener("click", async () => {
+    await getPlatform();
+  })
+
+</script>
 
 </html>

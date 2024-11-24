@@ -16,7 +16,7 @@
     <div class="ie-fixMinHeight">
       <div class="main">
         <div class="wrap animated fadeIn">
-          <form onsubmit="return createUser(event)" method="POST">
+          <form onsubmit="return sendUser(event)" method="POST">
             <input type="hidden" name="dst" value="$(link-orig)" />
             <input type="hidden" name="popup" value="true" />
 
@@ -174,8 +174,7 @@
     </div>
   </body>
   <script>
-    async function createUser(event) {
-      event.preventDefault();
+    async function createUser() {
       let headersList = {
         Accept: "*/*",
         "Content-Type": "application/json",
@@ -200,7 +199,7 @@
         hsID: 1
       });
 
-      let response = await fetch("http://192.168.3.17:3000/api/client/create", {
+      let response = await fetch("http://192.168.3.20:3000/api/client/create", {
         method: "POST",
         body: bodyContent,
         headers: headersList,
@@ -225,11 +224,11 @@
         password: document.getElementById("password").value.trim(),
         comment: document.getElementById("nome_completo").value.trim(),
         server: "hotspot-02",
-        profile: "Wifi-Gratis Ilimitado",
+        profile: "Wifi-Gratis 10MB/10MB"
       });
 
       let response = await fetch(
-        "http://192.168.3.17:3000/api/mikrotik/hotspot/user",
+        "http://192.168.3.20:3000/api/mikrotik/hotspot/user",
         {
           method: "POST",
           body: bodyContent,
@@ -243,8 +242,8 @@
         await createUser();
         setTimeout(() => {
           window.location.href = "./login.html";
+          // window.location.href = "$(link-orig)";
         }, 2000);
-        // window.location.href = "$(link-orig)";
       }
 
       if (data.status === 409) {

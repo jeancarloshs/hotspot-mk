@@ -24,6 +24,7 @@ $(endif)
     function openLogout() {
 	if (window.name != 'hotspot_status') return true;
         open('$(link-logout)', 'hotspot_logout', 'toolbar=0,location=0,directories=0,status=0,menubars=0,resizable=1,width=280,height=250');
+    setTimeout(3000);
 	window.close();
 	return false;
     }
