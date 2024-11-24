@@ -122,13 +122,13 @@
     };
 
     let bodyContent = JSON.stringify({
-      cpf: document.getElementById("cpf").value,
+      cpf: document.getElementById("cpf").value.trim(),
       user_agent: browserUserAgent,
       device_type: platform,
-      // browser: "deviceData.user_agent",
-      // browser_version: "deviceData.user_agent",
+      browser: null,
+      browser_version: null,
       os: os,
-      // os_version: "deviceData.user_agent",
+      os_version: null,
       screen_height: height,
       screen_width: width,
     });
