@@ -94,7 +94,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const btnConectar = document.getElementById("btnConectar");
   const browserUserAgent = navigator.userAgent;
   const browserPlatform = navigator.platform;
-  const userAgentData = navigator.userAgentData || {}; // Verifica se navigator.userAgentData está disponível
+  const userAgentData = navigator.userAgentData || null; // Verifica se navigator.userAgentData está disponível
   const userAgentDataPlatform = userAgentData.platform || ""; // Garante que a variável exista
 
   let browser = "";
