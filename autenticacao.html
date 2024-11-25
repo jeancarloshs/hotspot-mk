@@ -78,7 +78,10 @@
                 <p class="info $(if error)alert$(endif)">
                   $(if error)$(error)$(else)Faça login para acessar a internet.$(endif)
                 </p>           
-                <p id="error-message" class="error-message" style="display: none; color: red;"></p>
+                <!-- <p id="error-message" class="error-message" style="display: none; color: red;"></p> -->
+                <p class="info">
+                  Ainda não possui uma conta? <a href="$(link-login)">Registre-se agora</a>
+                </p>
 
 
             </div>
@@ -87,66 +90,131 @@
 </body>
 
 <script>
+document.addEventListener("DOMContentLoaded", () => {
   const btnConectar = document.getElementById("btnConectar");
   const browserUserAgent = navigator.userAgent;
   const browserPlatform = navigator.platform;
   const userAgentData = navigator.userAgentData || {}; // Verifica se navigator.userAgentData está disponível
   const userAgentDataPlatform = userAgentData.platform || ""; // Garante que a variável exista
+
+  let browser = "";
   let platform = "";
   let os = "";
+  let osVersion = null; // Inicializa a variável para a versão do sistema operacional
   const width = window.screen.width;
   const height = window.screen.height;
+
+  let browserVersion = "Desconhecida";
+
+  // Função para obter a versão do navegador
+  function getBrowserVersion(userAgent) {
+    if (userAgent.includes("Chrome")) {
+      const version = /Chrome\/(\d+\.\d+)/.exec(userAgent);
+      return version ? version[1] : "Desconhecida";
+    } else if (userAgent.includes("Safari") && !userAgent.includes("Chrome")) {
+      const version = /Version\/(\d+\.\d+)/.exec(userAgent);
+      return version ? version[1] : "Desconhecida";
+    } else if (userAgent.includes("Opera") || userAgent.includes("OPR")) {
+      const version = /Opera\/(\d+\.\d+)/.exec(userAgent) || /OPR\/(\d+\.\d+)/.exec(userAgent);
+      return version ? version[1] : "Desconhecida";
+    } else if (userAgent.includes("Firefox")) {
+      const version = /Firefox\/(\d+\.\d+)/.exec(userAgent);
+      return version ? version[1] : "Desconhecida";
+    } else if (userAgent.includes("MSIE") || userAgent.includes("Trident")) {
+      const version = /MSIE (\d+\.\d+)/.exec(userAgent) || /rv:(\d+\.\d+)/.exec(userAgent);
+      return version ? version[1] : "Desconhecida";
+    } else {
+      return "Desconhecida";
+    }
+  }
+
+  browserVersion = getBrowserVersion(browserUserAgent);
 
   // Identificar tipo de dispositivo e sistema operacional
   if (userAgentDataPlatform === "Windows" || browserPlatform.includes("Win")) {
     platform = "Desktop";
     os = "Windows";
+    const match = browserUserAgent.match(/Windows NT (\d+\.\d+)/);
+    osVersion = match ? match[1] : "Desconhecida";
   } else if (userAgentDataPlatform === "Android" || browserUserAgent.includes("Android")) {
     platform = "Mobile";
     os = "Android";
+    const match = browserUserAgent.match(/Android (\d+(\.\d+)?)/);
+    osVersion = match ? match[1] : "Desconhecida";
   } else if (browserUserAgent.includes("iPhone") || browserUserAgent.includes("iPad")) {
     platform = "Mobile";
     os = "iOS";
+    const match = browserUserAgent.match(/OS (\d+_\d+)/);
+    osVersion = match ? match[1].replace("_", ".") : "Desconhecida";
   } else if (browserPlatform.includes("Mac")) {
     platform = "Desktop";
     os = "macOS";
+    const match = browserUserAgent.match(/Mac OS X (\d+_\d+)/);
+    osVersion = match ? match[1].replace("_", ".") : "Desconhecida";
   } else {
     platform = "Unknown";
     os = "Unknown";
+    osVersion = "Desconhecida";
   }
 
+  // Identificar navegador
+  if (browserUserAgent.indexOf("Chrome") > -1) {
+    browser = "Google Chrome";
+  } else if (browserUserAgent.indexOf("Safari") > -1 && browserUserAgent.indexOf("Chrome") === -1) {
+    browser = "Apple Safari";
+  } else if (browserUserAgent.indexOf("Opera") > -1 || browserUserAgent.indexOf("OPR") > -1) {
+    browser = "Opera";
+  } else if (browserUserAgent.indexOf("Firefox") > -1) {
+    browser = "Mozilla Firefox";
+  } else if (browserUserAgent.indexOf("MSIE") > -1 || browserUserAgent.indexOf("Trident") > -1) {
+    browser = "Microsoft Internet Explorer";
+  } else {
+    browser = "Desconhecido";
+  }
+
+  // Função para enviar os dados do dispositivo
   async function getPlatform() {
-    let headersList = {
+    const headersList = {
       Accept: "*/*",
       "Content-Type": "application/json",
     };
 
-    let bodyContent = JSON.stringify({
+    const bodyContent = JSON.stringify({
       cpf: document.getElementById("cpf").value.trim(),
       user_agent: browserUserAgent,
       device_type: platform,
-      browser: null,
-      browser_version: null,
+      browser: browser,
+      browser_version: browserVersion || "Desconhecida",
       os: os,
-      os_version: null,
+      os_version: osVersion,
       screen_height: height,
       screen_width: width,
     });
 
-    let response = await fetch("http://192.168.3.20:3000/api/device/create", {
-      method: "POST",
-      body: bodyContent,
-      headers: headersList,
-    });
+    try {
+      const response = await fetch("http://192.168.3.20:3000/api/device/create", {
+        method: "POST",
+        body: bodyContent,
+        headers: headersList,
+      });
 
-    let data = await response.text();
-    console.log(data);
-    return data;
+      const data = await response.json();
+      console.log("Resposta da API:", data);
+      return data;
+    } catch (error) {
+      alert("Erro ao enviar dados: " + error.message);
+      console.error("Erro ao enviar dados:", error);
+    }
   }
 
-  btnConectar.addEventListener("click", async () => {
-    await getPlatform();
-  })
+  // Event listener para o botão "Conectar"
+  if (btnConectar) {
+    btnConectar.addEventListener("click", () => {
+      getPlatform();
+    });
+  }
+});
+
 
 </script>
 
