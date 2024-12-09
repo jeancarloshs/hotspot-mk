@@ -1,271 +1,191 @@
 <!DOCTYPE html>
 <html lang="en">
-  <head>
-    <meta charset="utf-8" />
-    <meta http-equiv="pragma" content="no-cache" />
-    <meta http-equiv="expires" content="-1" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Internet hotspot - Cadastro</title>
-    <link rel="stylesheet" href="css/style.css" />
-    <script src="js/jquery.min.js"></script>
-    <script src="js/jquery.inputmask.min.js"></script>
-    <script src="js/script.js"></script>
-    <script src="js/termos.js"></script>
-  </head>
 
-  <body>
-    <div class="ie-fixMinHeight">
-      <div class="main">
-        <div class="wrap animated fadeIn">
-          <form onsubmit="return sendUser(event)" method="POST">
-            <input type="hidden" name="dst" value="$(link-orig)" />
-            <input type="hidden" name="popup" value="true" />
+<head>
+  <meta charset="utf-8" />
+  <meta http-equiv="pragma" content="no-cache" />
+  <meta http-equiv="expires" content="-1" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Internet hotspot - Cadastro</title>
+  <link rel="stylesheet" href="css/style.css" />
+  <script src="js/jquery.min.js"></script>
+  <script src="js/jquery.inputmask.min.js"></script>
+  <script src="js/script.js"></script>
+  <script src="js/termos.js"></script>
+</head>
 
-            <label>
-              <img class="ico" src="img/user.svg" alt="#" />
-              <input
-                name="nome_completo"
-                id="nome_completo"
-                type="text"
-                placeholder="Nome Completo"
-                required
-              />
-            </label>
-            <label>
-              <img class="ico" src="img/arquivo.png" alt="#" />
-              <input
-                name="cpf"
-                id="cpf"
-                type="text"
-                inputmode="numeric"
-                maxlength="14"
-                placeholder="CPF"
-                onblur="validarCpf(this.value)"
-                required
-              />
-            </label>
-            <label>
-              <img class="ico" src="img/arquivo.png" alt="#" />
-              <input
-                name="data_nascimento"
-                id="data_nascimento"
-                type="text"
-                inputmode="numeric"
-                placeholder="Data de Nascimento"
-                required
-              />
-            </label>
-            <label>
-              <img class="ico" src="img/telefone.png" alt="#" />
-              <input
-                name="telefone"
-                id="telefone"
-                type="text"
-                placeholder="Telefone"
-                inputmode="numeric"
-                required
-              />
-            </label>
-            <label>
-              <img class="ico" src="img/adress.png" alt="#" />
-              <input
-                name="cep"
-                id="cep"
-                inputmode="numeric"
-                type="text"
-                placeholder="CEP"
-                onblur="buscarCep(this.value)"
-                required
-              />
-            </label>
-            <label>
-              <img class="ico" src="img/adress.png" alt="#" />
-              <input
-                name="endereco_completo"
-                id="endereco_completo"
-                type="text"
-                placeholder="Endereço Completo"
-              />
-            </label>
-            <label>
-              <img class="ico" src="img/adress.png" alt="#" />
-              <input
-                name="bairro"
-                id="bairro"
-                type="text"
-                placeholder="Bairro"
-              />
-            </label>
-            <label>
-              <img class="ico" src="img/adress.png" alt="#" />
-              <input
-                name="cidade"
-                id="cidade"
-                type="text"
-                placeholder="Cidade"
-              />
-            </label>
-            <label>
-              <img class="ico" src="img/adress.png" alt="#" />
-              <input
-                name="estado"
-                id="estado"
-                type="text"
-                placeholder="Estado"
-              />
-            </label>
-            <label>
-              <img class="ico" src="img/home.png" alt="#" />
-              <input
-                name="numero_casa"
-                id="numero_casa"
-                type="text"
-                placeholder="N° da Residência"
-              />
-            </label>
-            <label>
-              <img class="ico" src="img/home.png" alt="#" />
-              <input
-                name="complemento"
-                id="complemento"
-                type="text"
-                placeholder="Complemento"
-              />
-            </label>
+<body>
+  <div class="ie-fixMinHeight">
+    <div class="main">
+      <div class="wrap animated fadeIn">
+        <form onsubmit="return sendUser(event)" method="POST">
+          <input type="hidden" name="dst" value="$(link-orig)" />
+          <input type="hidden" name="popup" value="true" />
 
-            <label>
-              <img class="ico" src="img/e-mail.png" alt="#" />
-              <input
-                name="email"
-                id="email"
-                type="text"
-                placeholder="E-mail"
-                required
-              />
-            </label>
+          <label>
+            <img class="ico" src="img/user.svg" alt="#" />
+            <input name="nome_completo" id="nome_completo" type="text" placeholder="Nome Completo" required />
+          </label>
+          <label>
+            <img class="ico" src="img/arquivo.png" alt="#" />
+            <input name="cpf" id="cpf" type="text" inputmode="numeric" maxlength="14" placeholder="CPF"
+              onblur="validarCpf(this.value)" required />
+          </label>
+          <label>
+            <img class="ico" src="img/arquivo.png" alt="#" />
+            <input name="data_nascimento" id="data_nascimento" type="text" inputmode="numeric"
+              placeholder="Data de Nascimento" required />
+          </label>
+          <label>
+            <img class="ico" src="img/telefone.png" alt="#" />
+            <input name="telefone" id="telefone" type="text" placeholder="Telefone" inputmode="numeric" required />
+          </label>
+          <label>
+            <img class="ico" src="img/adress.png" alt="#" />
+            <input name="cep" id="cep" inputmode="numeric" type="text" placeholder="CEP" onblur="buscarCep(this.value)"
+              required />
+          </label>
+          <label>
+            <img class="ico" src="img/adress.png" alt="#" />
+            <input name="endereco_completo" id="endereco_completo" type="text" placeholder="Endereço Completo" />
+          </label>
+          <label>
+            <img class="ico" src="img/adress.png" alt="#" />
+            <input name="bairro" id="bairro" type="text" placeholder="Bairro" />
+          </label>
+          <label>
+            <img class="ico" src="img/adress.png" alt="#" />
+            <input name="cidade" id="cidade" type="text" placeholder="Cidade" />
+          </label>
+          <label>
+            <img class="ico" src="img/adress.png" alt="#" />
+            <input name="estado" id="estado" type="text" placeholder="Estado" />
+          </label>
+          <label>
+            <img class="ico" src="img/home.png" alt="#" />
+            <input name="numero_casa" id="numero_casa" type="text" placeholder="N° da Residência" />
+          </label>
+          <label>
+            <img class="ico" src="img/home.png" alt="#" />
+            <input name="complemento" id="complemento" type="text" placeholder="Complemento" />
+          </label>
 
-            <label>
-              <img class="ico" src="img/password.svg" alt="#" />
-              <input
-                name="password"
-                id="password"
-                type="password"
-                placeholder="Senha"
-                required
-              />
-            </label>
+          <label>
+            <img class="ico" src="img/e-mail.png" alt="#" />
+            <input name="email" id="email" type="text" placeholder="E-mail" required />
+          </label>
 
-            <label>
-              <img class="ico" src="img/password.svg" alt="#" />
-              <input
-                name="password_confirm"
-                id="password_confirm"
-                type="password"
-                placeholder="Confirme a Senha"
-                required
-              />
-            </label>
+          <label>
+            <img class="ico" src="img/password.svg" alt="#" />
+            <input name="password" id="password" type="password" placeholder="Senha" required />
+          </label>
 
-            <input class="btn--cadastrar" type="submit" value="Cadastrar" />
-            <p class="info">
-              Já possui uma conta? <a href="$(link-login)">Login</a>
-            </p>
-          </form>
-        </div>
+          <label>
+            <img class="ico" src="img/password.svg" alt="#" />
+            <input name="password_confirm" id="password_confirm" type="password" placeholder="Confirme a Senha"
+              required />
+          </label>
+
+          <input class="btn--cadastrar" type="submit" value="Cadastrar" />
+          <p class="info">
+            Já possui uma conta? <a href="$(link-login)">Login</a>
+          </p>
+        </form>
       </div>
     </div>
-  </body>
-  <script>
+  </div>
+</body>
+<script>
 
-    function validarCpf(cpf) {
-      const regexCpfInvalido = /^(?!.*(\d)\1{2}(\.\1{3}){2}-\1{2}$)\d{3}\.\d{3}\.\d{3}-\d{2}$/;
+  function validarCpf(cpf) {
+    const regexCpfInvalido = /^(?!.*(\d)\1{2}(\.\1{3}){2}-\1{2}$)\d{3}\.\d{3}\.\d{3}-\d{2}$/;
 
-      if (!regexCpfInvalido.test(cpf)) {
-        document.getElementById("cpf").value = "";
-        alert("CPF inválido (formato ou sequência repetida)");
-        return
-      }
-
-      return "CPF válido no formato e sequência";
+    if (!regexCpfInvalido.test(cpf)) {
+      document.getElementById("cpf").value = "";
+      alert("CPF inválido (formato ou sequência repetida)");
+      return
     }
-    
-    async function createUser() {
-      let headersList = {
-        Accept: "*/*",
-        "Content-Type": "application/json",
-      };
 
-      let bodyContent = JSON.stringify({
-        nome_completo: document.getElementById("nome_completo").value.trim(),
-        cpf: document.getElementById("cpf").value.trim(),
-        telefone: document.getElementById("telefone").value.trim(),
-        data_nascimento: document.getElementById("data_nascimento").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        password: document.getElementById("password").value.trim(),
-        cep: document.getElementById("cep").value.trim(),
-        endereco: document.getElementById("endereco_completo").value.trim(),
-        numero: document.getElementById("numero_casa").value.trim(),
-        bairro: document.getElementById("bairro").value.trim(),
-        cidade: document.getElementById("cidade").value.trim(),
-        estado: document.getElementById("estado").value.trim(),
-        complemento: document.getElementById("complemento").value.trim(),
-        tipo_usuario: "visitante".trim(),
-        ip_local: "0.0.0.0".trim(),
-        hsID: 1
-      });
+    return "CPF válido no formato e sequência";
+  }
 
-      let response = await fetch("http://192.168.3.20:3000/api/client/create", {
+  async function createUser() {
+    let headersList = {
+      Accept: "*/*",
+      "Content-Type": "application/json",
+    };
+
+    let bodyContent = JSON.stringify({
+      nome_completo: document.getElementById("nome_completo").value.trim(),
+      cpf: document.getElementById("cpf").value.trim(),
+      telefone: document.getElementById("telefone").value.trim(),
+      data_nascimento: document.getElementById("data_nascimento").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      password: document.getElementById("password").value.trim(),
+      cep: document.getElementById("cep").value.trim(),
+      endereco: document.getElementById("endereco_completo").value.trim(),
+      numero: document.getElementById("numero_casa").value.trim(),
+      bairro: document.getElementById("bairro").value.trim(),
+      cidade: document.getElementById("cidade").value.trim(),
+      estado: document.getElementById("estado").value.trim(),
+      complemento: document.getElementById("complemento").value.trim(),
+      tipo_usuario: "visitante".trim(),
+      hsID: 1
+    });
+
+    let response = await fetch("http://192.168.3.10:3000/api/client/create", {
+      method: "POST",
+      body: bodyContent,
+      headers: headersList,
+    });
+
+    let data = await response.json();
+    console.log(data);
+    return data;
+  }
+
+  async function sendUser(event) {
+    event.preventDefault();
+    let headersList = {
+      Accept: "*/*",
+      "Content-Type": "application/json",
+    };
+
+    let bodyContent = JSON.stringify({
+      ipHotspot: "192.168.3.1",
+      name: document.getElementById("cpf").value.trim(),
+      email: document.getElementById("email").value.trim(),
+      password: document.getElementById("password").value.trim(),
+      comment: document.getElementById("nome_completo").value.trim(),
+      server: "hotspot-02",
+      profile: "Wifi-Gratis 10MB/10MB"
+    });
+
+    let response = await fetch(
+      "http://192.168.3.10:3000/api/mikrotik/hotspot/user",
+      {
         method: "POST",
         body: bodyContent,
-        headers: headersList,
-      });
-
-      let data = await response.json();
-      console.log(data);
-      return data;
-    }
-
-    async function sendUser(event) {
-      event.preventDefault();
-      let headersList = {
-        Accept: "*/*",
-        "Content-Type": "application/json",
-      };
-
-      let bodyContent = JSON.stringify({
-        ipHotspot: "192.168.3.1",
-        name: document.getElementById("cpf").value.trim(),
-        email: document.getElementById("email").value.trim(),
-        password: document.getElementById("password").value.trim(),
-        comment: document.getElementById("nome_completo").value.trim(),
-        server: "hotspot-02",
-        profile: "Wifi-Gratis 10MB/10MB"
-      });
-
-      let response = await fetch(
-        "http://192.168.3.20:3000/api/mikrotik/hotspot/user",
-        {
-          method: "POST",
-          body: bodyContent,
-          headers: headersList
-        }
-      );
-
-      let data = await response.json();
-      if (data.status === 201) {
-        alert(data.message);
-        await createUser();
-        setTimeout(() => {
-          window.location.href = "./login.html";
-          // window.location.href = "$(link-orig)";
-        }, 2000);
+        headers: headersList
       }
+    );
 
-      if (data.status === 409) {
-        alert(data.message);
+    let data = await response.json();
+    if (data.status === 201) {
+      alert(data.message);
+      await createUser();
+      setTimeout(() => {
+        window.location.href = "./login.html";
         // window.location.href = "$(link-orig)";
-      }
-      return data;
+      }, 2000);
     }
-  </script>
+
+    if (data.status === 409) {
+      alert(data.message);
+      // window.location.href = "$(link-orig)";
+    }
+    return data;
+  }
+</script>
+
 </html>
